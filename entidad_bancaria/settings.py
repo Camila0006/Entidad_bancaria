@@ -16,32 +16,27 @@ import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print("BASE_DIR:", BASE_DIR)
 
+
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / 'proyecto_bancario'/ 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=i&*t#ggm&t^lbg=lc71ayd4vud*4ey5w!3o3ow6zu620yh)ek'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-=i&*t#ggm&t^lbg=lc71ayd4vud*4ey5w!3o3ow6zu620yh)ek')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Cambia a False en producción
 
 ALLOWED_HOSTS = ['entidad-bancaria-d809da43f3e8.herokuapp.com', 'localhost', '127.0.0.1']
 
-
 # Application definition
-
-
-
 INSTALLED_APPS = [
     'proyecto_bancario',
     'django.contrib.sessions',
@@ -53,13 +48,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -83,22 +78,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'entidad_bancaria.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# entidad_bancaria_project/settings.py
-
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        options={
+            'init_command': "SET sql_mode='STRICT_ALL_TABLES'"
+        }
     )
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -114,25 +106,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
