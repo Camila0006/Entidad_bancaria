@@ -45,3 +45,10 @@ db_config = dj_database_url.parse(database_url)
 
 # Crear un pool de conexiones
 pool = ConnectionPool(pool_size=1, **db_config)
+
+# Obtener una conexión
+connection = pool.get_connection()
+print("Conexión exitosa")
+
+# Liberar la conexión
+pool.release_connection(connection)
