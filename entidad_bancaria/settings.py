@@ -32,10 +32,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-=i&*t#ggm&t^lbg=lc71ayd4vud*4ey5w!3o3ow6zu620yh)ek')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Cambia a False en producción
 
-# ALLOWED_HOSTS = ['entidad-bancaria-d809da43f3e8.herokuapp.com', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['entidad-bancaria-d809da43f3e8.herokuapp.com']
+ALLOWED_HOSTS = ['entidad-bancaria-d809da43f3e8.herokuapp.com', 'localhost']
+
 
 
 # Application definition
