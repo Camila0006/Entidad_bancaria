@@ -2,15 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import sys
 import os
-from dotenv import load_dotenv
 import proyecto_bancario.db.db
-
-load_dotenv()  # Carga las variables de entorno del archivo .env
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'entidad_bancaria.settings')
-
-# Inicializa la base de datos
-proyecto_bancario.db.db
 
 
 def main():
@@ -28,3 +20,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # Inicializa la base de datos
+    proyecto_bancario.db.db
