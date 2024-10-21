@@ -1,0 +1,129 @@
+
+body, h1, h2, p, ul, li, address {
+    margin: 20px;
+    padding: 20px;
+}
+
+
+body {  
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #1e0285;
+    color: #fff;
+    padding: 40px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+section {
+    margin: 40px 0;
+    padding: 40px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+
+#Ingrese {
+    background-color: #f1f1f1;
+}
+
+#inicio h2 {
+    color: #333;
+}
+
+
+#servicios ul {
+    list-style-type: square;
+    margin-left: 40px;
+}
+
+
+#contacto address {
+    font-style: normal;
+}
+
+
+@media only screen and (max-width: 768px) {
+    header {
+        padding: 20px 0;
+    }
+
+    nav ul li {
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+.alert-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 1000;
+}
+
+.alert {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.alert-success {
+    color: black;
+    background-color: #a2ffb1;
+    border-color: #ebccd1;
+}
+
+.alert-warning {
+    color: black;
+    background-color: #fff1a2;
+    border-color: #ebccd1;
+}
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.custom-button {
+    background-color: #1e0285;
+    color: white;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none; /* Quita el subrayado del enlace */
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Asegura que se comporte como un botón */
+}
+
+.custom-button:hover {
+    background-color: #2b1ba6;
+}

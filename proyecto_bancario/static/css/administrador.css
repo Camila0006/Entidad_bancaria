@@ -1,0 +1,220 @@
+
+body, h1, h2, p, ul, li, address {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif; 
+    line-height: 1.6;
+    background-color: #f3f4f6; 
+    color: #333; 
+}
+
+
+header {
+    background-color: #1e0285;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+nav ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s ease; 
+}
+
+nav a:hover {
+    color: #ffdd57; 
+}
+
+
+section {
+    margin: 30px 0;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+
+#Ingrese {
+    background-color: #1e0285;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#inicio h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #1e0285;
+    margin-bottom: 20px;
+}
+
+
+#servicios ul {
+    list-style-type: square;
+    margin-left: 40px;
+    padding: 0;
+}
+
+#servicios ul li {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+#contacto address {
+    font-style: normal;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+
+footer {
+    background-color: #084eaa;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1rem;
+    border-top: 5px solid #052d7f;
+}
+
+
+@media only screen and (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    nav ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    section {
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+    #servicios ul {
+        margin-left: 20px;
+    }
+}
+
+
+.alert-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+}
+
+.alert {
+    display: inline-block;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: auto;
+    font-size: 1rem;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+
+.alert {
+    transition: all 0.3s ease-in-out;
+}
+
+.image-container {
+    position: relative; /* Necesario para posicionar el botón encima */
+    width: 100%;
+    height: 100vh; /* Ajusta la imagen al 100% del alto de la pantalla */
+    overflow: hidden; /* Evita que se muestre el contenido adicional que cause scroll */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* La imagen cubrirá el contenedor sin deformarse */
+}
+
+.boton {
+    position: absolute; /* El botón se posicionará encima de la imagen */
+    top: 20px; /* Ajusta según donde quieras colocar el botón */
+    right: 20px; /* Ajusta la posición desde la derecha */
+    z-index: 1; /* Asegura que el botón quede sobre la imagen */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+
+.custom-button {
+    background-color: #1e0285;
+    color: white;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none; /* Quita el subrayado del enlace */
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Asegura que se comporte como un botón */
+}
+
+.custom-button:hover {
+    background-color: #2b1ba6;
+}

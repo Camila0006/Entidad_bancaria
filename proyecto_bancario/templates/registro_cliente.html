@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/registro_cliente.css' %}">
+</head>
+<body>
+    <div class="alert-container">
+        {% if message_error_duplicated %}
+        <div class="alert alert-error">{{ message_error_duplicated }}</div>
+        {% endif %}
+    </div>
+
+    <form method="post" action="{% url 'registro_cliente' %}" class="registro-cliente">
+        <h2>Registro</h2>
+        {% csrf_token %}
+        <label for="cedula">Cédula:</label>
+        <input type="text" id="cedula" name="cedula" required>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required>
+
+        <label for="ciudad">Ciudad: </label>
+        <select id="ciudad" name="ciudad">
+            {% for tupla in ciudades %}
+            {% for ciudad in tupla %}
+                <option value="{{ ciudad }}" {% if forloop.last %}selected{% endif %}>{{ ciudad }}</option>
+                {% endfor %}
+            {% endfor %}
+        </select>
+        <br>
+        <button type= "submit">Enviar</button>   
+        <br>
+        <a href= "{% url 'administrador' %}" class="custom-button">Volver</a>
+    </form>
+    
+    
+</body>
+</html>
+

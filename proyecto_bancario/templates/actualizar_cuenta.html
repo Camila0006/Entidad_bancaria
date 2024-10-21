@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/actualizar_cuenta.css' %}">
+</head>
+
+<body>
+    <div class="alert-container">
+        {% if message_success_update %}
+        <div class="alert alert-success">{{ message_success_update }}</div>
+        {% endif %}
+    </div>
+
+    <form method="post" action="{% url 'actualizar_cuenta' %}">
+        <h2>Actualizar datos </h2>
+        {% csrf_token %}
+
+        <br>
+        <label for="nombre_cuenta">Tipo de cuenta:</label>
+        <select id="nombre_cuenta" name="nombre_cuenta">
+            <option value=""> </option>
+            <option value="Ahorros">Ahorros</option>
+            <option value="Corriente">Corriente</option>
+        </select>
+        <label for="estado">Estado:</label>
+        <select id="estado" name="estado">
+            <option value=""> </option>
+            <option value="Activa">Activa</option>
+            <option value="Inactiva">Inactiva</option>
+        </select>
+        <br>
+        <button type="submit">Enviar</button>
+        <br>
+        <a href="{% url 'administrador' %}" class="custom-button">Volver</a>
+     </form>
+   
+</body>
+
+</html>

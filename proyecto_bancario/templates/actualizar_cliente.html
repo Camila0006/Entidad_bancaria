@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/actualizar_cliente' %}">
+</head>
+
+<body>
+    <div class="alert-container">
+        {% if message_success_update %}
+        <div class="alert alert-success">{{ message_success_update }}</div>
+        {% endif %}
+    </div>  
+
+    <form method="post" action="{% url 'actualizar_cliente' %}">
+        <h2>Actualizar datos </h2>
+        {% csrf_token %}
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="{{nombre_existente}}" required>
+
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" name="apellido" placeholder="{{apellido_existente}}" required>
+
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="{{telefono_existente}}" required>
+
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" placeholder="{{direccion_existente}}" required>
+
+        <label for="ciudad">Selecciona la ciudad</label>
+        <select id="ciudad" name="ciudad">
+            {% for tupla in ciudades %}
+            {% for ciudad in tupla %}
+                <option value="{{ ciudad }}" {% if forloop.last %}selected{% endif %}>{{ ciudad }}</option>
+                {% endfor %}
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <button type="submit">Enviar</button>
+        <br>
+        <a href="{% url 'administrador' %}" class="custom-button">Volver</a>
+    </form>
+</body>
+</html>

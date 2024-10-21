@@ -1,0 +1,66 @@
+create database entidad_bancaria;
+use entidad_bancaria;
+
+create table ciudad 
+(
+codigo_ciudad varchar (10) primary key not null,
+nombre_ciudad varchar (25) not null
+);
+
+create table cliente
+(
+cedula_cliente varchar (12) primary key not null unique, 
+nombre_cliente varchar (25) not null, 
+apellido_cliente varchar (25) not null, 
+telefono_cliente varchar (15) not null,
+direccion_cliente varchar (50) not null, 
+codigo_ciudad varchar (10) not null,
+codigo_cuenta varchar (10) null
+);
+
+create table cuenta
+(
+codigo_cuenta varchar (10) primary key not null unique, 
+nombre_cuenta varchar (25) not null, 
+estado varchar (10),
+saldo double not null
+);
+
+create table movimiento 
+(
+id int primary key auto_increment, 
+cedula_cliente varchar (12) not null,
+codigo_cuenta varchar (10) not null,
+fecha_movimiento date not null,
+tipo_movimiento varchar (20) not null,
+saldo double not null
+);
+
+create table adm_cuenta
+(
+codigo_adm varchar (10) primary key not null unique, 
+cedula_cliente varchar (12) not null,
+fecha_creacion_cuenta date not null
+); 	
+
+alter table movimiento
+add constraint fk_cedula_cliente foreign key (cedula_cliente) references cliente (cedula_cliente)
+ON DELETE CASCADE;
+
+alter table movimiento 
+add constraint fk_codigo_cuenta foreign key (codigo_cuenta) references cuenta (codigo_cuenta)
+ON DELETE CASCADE;
+
+alter table adm_cuenta
+add constraint fk2_cedula_cliente foreign key (cedula_cliente) references cliente (cedula_cliente)
+ON DELETE CASCADE;
+
+alter table cliente
+add constraint fk2_codigo_cuenta foreign key (codigo_cuenta) references cuenta (codigo_cuenta)
+ON DELETE CASCADE;
+
+ALTER TABLE cliente
+ADD CONSTRAINT fk_codigo_ciudad
+FOREIGN KEY (codigo_ciudad)
+REFERENCES ciudad (codigo_ciudad)
+ON DELETE CASCADE;
