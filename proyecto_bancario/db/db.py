@@ -1,5 +1,6 @@
 import os
 import pymysql
+import dj_database_url
 from pymysql import connections
 
 class ConnectionPool:
@@ -28,11 +29,17 @@ class ConnectionPool:
         else:
             connection.close()
 
-# Obtener la URL de la base de datos de la variable de entorno
+# Obtener la URL de la base de datos de las variables de entorno
 database_url = os.getenv('DATABASE_URL')
 
-# Crear un pool de conexiones
-pool = ConnectionPool(pool_size=1, **database_url)
+if not database_url:
+    raise Exception("DATABASE_URL no está configurada en las variables de entorno.")
+
+# Convertir la URL a un diccionario
+db_config = dj_database_url.parse(database_url)
+
+# Ahora puedes pasar db_config al ConnectionPool
+pool = ConnectionPool(pool_size=1, **db_config)
 
 # Obtener una conexión
 connection = pool.get_connection()
