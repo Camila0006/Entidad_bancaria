@@ -80,14 +80,9 @@ WSGI_APPLICATION = 'entidad_bancaria.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        options={
-            'init_command': "SET sql_mode='STRICT_ALL_TABLES'"
-        }
-    )
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
+
 
 
 # Password validation
