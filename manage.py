@@ -4,6 +4,7 @@ import proyecto_bancario.db.db
 
 
 def main():
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'entidad_bancaria.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
