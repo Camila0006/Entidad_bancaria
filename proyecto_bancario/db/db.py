@@ -1,6 +1,7 @@
 import os
-import pymysql
 import dj_database_url
+import pymysql
+from pymysql import connections
 
 class ConnectionPool:
     def __init__(self, pool_size, **kwargs):
