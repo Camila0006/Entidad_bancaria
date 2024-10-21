@@ -32,7 +32,7 @@ class ConnectionPool:
 database_url = os.getenv('DATABASE_URL')
 
 # Crear un pool de conexiones
-pool = ConnectionPool(pool_size=1, **db_config)
+pool = ConnectionPool(pool_size=1, **database_url)
 
 # Obtener una conexión
 connection = pool.get_connection()
