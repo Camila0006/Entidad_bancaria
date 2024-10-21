@@ -50,5 +50,4 @@ pool = ConnectionPool(pool_size=1, **db_config)
 connection = pool.get_connection()
 print("Conexión exitosa")
 
-# Liberar la conexión
-pool.release_connection(connection)
+

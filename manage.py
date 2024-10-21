@@ -3,6 +3,7 @@ import os
 import sys
 import proyecto_bancario.db.db
 
+proyecto_bancario.db.db
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'entidad_bancaria.settings')
@@ -15,7 +16,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-    proyecto_bancario.db.db
 
 
 if __name__ == '__main__':

@@ -16,6 +16,7 @@ valida_reporte_por_codigo_cuenta = ""
 def index_view(request):
     print("LOG_INFO", "VIEWS", "index_view")
     registro_admin()
+    print("LOG_INFO", "VIEWS", "index_view_charge_OK")
     return render (request, 'index.html')
 
 

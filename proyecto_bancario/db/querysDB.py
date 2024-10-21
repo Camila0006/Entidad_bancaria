@@ -2,14 +2,18 @@ from proyecto_bancario.db.db import connection
 from datetime import datetime, timedelta
 
 def registro_admin():
-    print("LOG_INFO", "VIEWS", "registro_admin")
+    print("LOG_INFO", "QUERYSDB", "registro_admin")
     administrador = obtener_administrador(2409)
+    print("LOG_INFO", "QUERYSDB", "obtener_administrador_sucessfully")
     if len(administrador) == 0:
+        print("LOG_INFO", "QUERYSDB", "registro_admin_initialitation")
         db = connection.cursor()
         query = "INSERT INTO cliente (cedula_cliente, nombre_cliente, apellido_cliente, telefono_cliente, direccion_cliente, codigo_ciudad) VALUES ('123','camila','mendez','1234','cra1236','434');"
         db.execute(query)
+        print("LOG_INFO", "QUERYSDB", "create_cliente_successfully")
         query = "INSERT INTO adm_cuenta(codigo_adm,cedula_cliente,fecha_creacion_cuenta) VALUES ('2409','123','2024-10-16');"
         db.execute(query)
+        print("LOG_INFO", "QUERYSDB", "create_cuenta_successfully")
         connection.commit()
     return
 
@@ -64,10 +68,12 @@ def obtener_cuenta(codigo_cuenta):
 
 
 def obtener_administrador(codigo_admin):
+    print("LOG_INFO", "QUERYSDB", "obtener_administrador")
     db = connection.cursor()
     query = "SELECT * FROM adm_cuenta WHERE codigo_adm = %s;"
     db.execute(query,(codigo_admin))
     result =db.fetchall()
+    print("LOG_INFO", "QUERYSDB", "obtener_administrador_sucessfully")
 
     return result
 
