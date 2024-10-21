@@ -1,5 +1,16 @@
 from django.db import models
 
+class AdmCuenta(models.Model):
+    codigo_adm = models.CharField(max_length=10, primary_key=True)
+    cedula_cliente = models.CharField(max_length=12)
+    codigo_cuenta = models.CharField(max_length=10)
+    fecha_creacion_cita = models.DateField()
+
+    def __str__(self):
+        return f"AdmCuenta {self.codigo_adm}"
+    class Meta:
+        db_table = "adm_cuenta"
+
 class Ciudad(models.Model):
     codigo_ciudad = models.CharField(max_length=10, primary_key=True)
     nombre_ciudad = models.CharField(max_length=25)
@@ -45,13 +56,4 @@ class Movimiento(models.Model):
     class Meta:
         db_table = "movimiento"
 
-class AdmCuenta(models.Model):
-    codigo_adm = models.CharField(max_length=10, primary_key=True)
-    cedula_cliente = models.CharField(max_length=12)
-    codigo_cuenta = models.CharField(max_length=10)
-    fecha_creacion_cita = models.DateField()
 
-    def __str__(self):
-        return f"AdmCuenta {self.codigo_adm}"
-    class Meta:
-        db_table = "adm_cuenta"
