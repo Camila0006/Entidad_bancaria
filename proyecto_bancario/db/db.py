@@ -1,3 +1,4 @@
+import os
 import pymysql
 from pymysql import connections
 
@@ -27,13 +28,8 @@ class ConnectionPool:
         else:
             connection.close()
 
-# Parámetros de conexión
-db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '12345',
-    'database': 'entidad_bancaria',
-}
+# Obtener la URL de la base de datos de la variable de entorno
+database_url = os.getenv('DATABASE_URL')
 
 # Crear un pool de conexiones
 pool = ConnectionPool(pool_size=1, **db_config)
