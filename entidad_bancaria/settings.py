@@ -22,6 +22,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'proyecto_bancario'/ 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+print("LOG_INFO", "SETTINGS", "BASE_DIR", BASE_DIR)
+print("LOG_INFO", "SETTINGS", "STATICFILES_DIRS", STATICFILES_DIRS)
+print("LOG_INFO", "SETTINGS", "STATIC_ROOT", STATIC_ROOT)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
