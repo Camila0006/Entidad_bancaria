@@ -2,6 +2,7 @@ from proyecto_bancario.db.db import connection
 from datetime import datetime, timedelta
 
 def registro_admin():
+    print("LOG_INFO", "VIEWS", "registro_admin")
     administrador = obtener_administrador(2409)
     if len(administrador) == 0:
         db = connection.cursor()
