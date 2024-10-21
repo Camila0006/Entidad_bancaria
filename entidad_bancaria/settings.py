@@ -34,7 +34,7 @@ print("STATIC_ROOT:", STATIC_ROOT)
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-=i&*t#ggm&t^lbg=lc71ayd4vud*4ey5w!3o3ow6zu620yh)ek')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Cambia a False en producción
+DEBUG = True  # Cambia a False en producción
 
 ALLOWED_HOSTS = ['entidad-bancaria-d809da43f3e8.herokuapp.com', 'localhost']
 
