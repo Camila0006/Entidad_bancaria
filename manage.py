@@ -4,6 +4,8 @@ import sys
 import os
 import proyecto_bancario.db.db
 
+# Inicializa la base de datos
+proyecto_bancario.db.db
 
 def main():
     """Run administrative tasks."""
@@ -20,5 +22,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # Inicializa la base de datos
-    proyecto_bancario.db.db
