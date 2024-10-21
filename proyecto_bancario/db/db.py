@@ -40,4 +40,3 @@ print("Conexión exitosa")
 
 # Liberar la conexión
 pool.release_connection(connection)
-
