@@ -1,14 +1,9 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
 import sys
-import os
 import proyecto_bancario.db.db
 
-# Inicializa la base de datos
-proyecto_bancario.db.db
 
 def main():
-    """Run administrative tasks."""
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -18,6 +13,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
+    proyecto_bancario.db.db
 
 
 if __name__ == '__main__':
