@@ -1,12 +1,16 @@
 import os
 import pymysql
 import dj_database_url
-from pymysql import connections
 
 class ConnectionPool:
     def __init__(self, pool_size, **kwargs):
         self.pool_size = pool_size
-        self.connection_params = kwargs
+        self.connection_params = {
+            'host': kwargs['HOST'],
+            'user': kwargs['USER'],
+            'password': kwargs['PASSWORD'],
+            'database': kwargs['NAME'],
+        }
         self.connections = []
 
         # Crear conexiones iniciales en el pool
@@ -38,12 +42,5 @@ if not database_url:
 # Convertir la URL a un diccionario
 db_config = dj_database_url.parse(database_url)
 
-# Ahora puedes pasar db_config al ConnectionPool
+# Crear un pool de conexiones
 pool = ConnectionPool(pool_size=1, **db_config)
-
-# Obtener una conexión
-connection = pool.get_connection()
-print("Conexión exitosa")
-
-# Liberar la conexión
-pool.release_connection(connection)
