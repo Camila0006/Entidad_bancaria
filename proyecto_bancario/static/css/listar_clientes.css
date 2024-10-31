@@ -15,7 +15,7 @@ body {
 
 
 header {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 20px;
     text-align: center;
@@ -60,7 +60,7 @@ section {
 
 
 #Ingrese {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 40px 20px;
     text-align: center;
@@ -70,7 +70,7 @@ section {
 #inicio h2 {
     font-size: 2.2rem;
     font-weight: 600;
-    color: #1e0285;
+    color: #343a40;
     margin-bottom: 20px;
 }
 
@@ -97,12 +97,12 @@ section {
 
 
 footer {
-    background-color: #084eaa;
+    background-color: #343a40;
     color: white;
     padding: 20px;
     text-align: center;
     font-size: 1rem;
-    border-top: 5px solid #052d7f;
+    border-top: 5px solid #343a40;
 }
 
 
@@ -184,7 +184,7 @@ footer {
 }
 
 .custom-button {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 12px 15px;
     margin: 10px 0;
@@ -198,6 +198,6 @@ footer {
 }
 
 .custom-button:hover {
-    background-color: #2b1ba6;
+    background-color: #343a40;
 }
 

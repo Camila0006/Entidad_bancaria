@@ -16,24 +16,13 @@ body {
     color: #333;
 }
 
-.form-cliente {
-    background-color: #fff; 
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
-    padding: 60px;
-    width: 400px;
-    height: 450px;
-    text-align: center;
-    animation: fadeIn 0.6s ease-in-out;
-}
-
 .form-admin {
     background-color: #fff; 
-    border-radius: 15px;
+    border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
     padding: 60px;
     width: 400px;
-    height: 350px;
+    height: 400px;
     text-align: center;
     animation: fadeIn 0.6s ease-in-out;
 }
@@ -49,11 +38,11 @@ input {
 }
 
 input:focus {
-    border-color: #1e0285; 
+    border-color: #343a40; 
 }
 
 button {
-    background-color: #1e0285; 
+    background-color: #343a40; 
     color: white;
     padding: 12px 15px;
     margin: 10px 0;
@@ -65,7 +54,7 @@ button {
 }
 
 button:hover {
-    background-color: #2b1ba6; 
+    background-color: #343a40; 
 }
 
 .login-box {
@@ -73,14 +62,14 @@ button:hover {
 }
 
 .login-box a {
-    color: #1e0285;
+    color: #343a40;
     font-weight: 500;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .login-box a:hover {
-    color: #2b1ba6;
+    color: #343a40;
     text-decoration: underline;
 }
 
@@ -127,7 +116,7 @@ button:hover {
 }
 
 .custom-button {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 12px 15px;
     margin: 10px 0;
@@ -141,5 +130,5 @@ button:hover {
 }
 
 .custom-button:hover {
-    background-color: #2b1ba6;
+    background-color: #343a40;
 }

@@ -14,7 +14,7 @@ body {
 
 
 header {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 20px;
     text-align: center;
@@ -57,7 +57,7 @@ nav a:hover {
 }
 
 #inicio h2 {
-    color: #1e0285;
+    color: #343a40;
     font-size: 2rem;
     font-weight: 600; 
     margin-bottom: 15px; 
@@ -85,7 +85,7 @@ nav a:hover {
 
 
 #servicios {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 50px 20px;
     text-align: center;
@@ -109,13 +109,13 @@ nav a:hover {
     font-size: 1.2rem;
     font-weight: 500;
     padding: 10px 15px;
-    background-color: #2929a3;
+    background-color: #343a40;
     border-radius: 8px;
     transition: background-color 0.3s ease; 
 }
 
 #servicios li:hover {
-    background-color: #4141c4;
+    background-color: #343a40;
 }
 
 #servicios li:last-child {
@@ -151,7 +151,7 @@ address {
 
 
 footer {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 15px;
     text-align: center;

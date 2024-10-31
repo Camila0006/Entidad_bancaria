@@ -22,7 +22,6 @@ from django.urls import path
 from proyecto_bancario.views import index_view, login_admin_view, login_cliente_view,cliente_view, administrador_view
 from proyecto_bancario.views import listar_clientes_view, listar_cuentas_view
 from proyecto_bancario.views import registro_cliente_view, registro_cuenta_view
-from proyecto_bancario.views import valida_cliente_por_cedula_view, validar_cuenta_por_codigo_view
 from proyecto_bancario.views import actualizar_cliente_view, actualizar_cuenta_view
 from proyecto_bancario.views import eliminar_cliente_view, eliminar_cuenta_view
 from proyecto_bancario.views import reporte_por_codigo_cuenta_view
@@ -37,8 +36,6 @@ urlpatterns = [
     path('listar_cuentas/', listar_cuentas_view, name='listar_cuentas'),
     path('registro_cliente/', registro_cliente_view, name='registro_cliente'),
     path('registro_cuenta/', registro_cuenta_view, name='registro_cuenta'),
-    path('validar_cliente/', valida_cliente_por_cedula_view, name='validar_cliente'),
-    path('validar_cuenta/', validar_cuenta_por_codigo_view, name='validar_cuenta'),
     path('actualizar_cliente/', actualizar_cliente_view, name='actualizar_cliente'),
     path('actualizar_cuenta/', actualizar_cuenta_view, name='actualizar_cuenta'),
     path('eliminar_cliente/', eliminar_cliente_view, name='eliminar_cliente'),

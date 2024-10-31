@@ -17,21 +17,25 @@
         <div class="alert alert-error">{{ message_error_duplicated }}</div>
         {% endif %}
         {% if message_error_assign_cliente %}
-        <div class="alert alert-error">{{ message_error_assign_cliente }}</div>
+        <div class="alert alert-error">{{ message_error_assign_client }}</div>
         {% endif %}
         {% if message_succes_registro %}
         <div class="alert alert-success">{{ message_succes_registro }}</div>
         {% endif %}
     </div>
 
-    <form method="post" action="{% url 'registro_cuenta' %}">
+    <header>
         <h2>Registro</h2>
+    </header>
+    <form method="post" action="{% url 'registro_cuenta' %}" class="registro-cuenta row g-3">
         {% csrf_token %}
-        <label for="codigo_cuenta">Codigo cuenta:</label>
-        <input type="text" id="codigo_cuenta" name="codigo_cuenta" required>
-
-        <label for="cedula_cliente">Cedula cliente a asociar:</label>
-        <input type="text" id="cedula_cliente" name="cedula_cliente" required>
+        <div class="col-md-6">
+            <input type="text" placeholder="Codigo de la cuenta" id="codigo_cuenta" name="codigo_cuenta" required>
+        </div>
+        <div class="col-md-6">
+            <input type="text" placeholder="Cedula del cliente a asociar" id="cedula_cliente" name="cedula_cliente"
+                required>
+        </div>
         <br>
         <label for="nombre_cuenta">Tipo de cuenta:</label>
         <select id="nombre_cuenta" name="nombre_cuenta">
@@ -49,9 +53,11 @@
         <label for="saldo">Dinero a ingresar:</label>
         <input type="tel" id="saldo" name="saldo" required>
         <br>
-        <button type="submit">Enviar</button>
+        <div class="col-12">
+            <button type="submit">Enviar</button>
+        </div>
         <br>
-        <a href= "{% url 'administrador' %}" class="custom-button">Volver</a>
+        <a href="{% url 'administrador' %}" class="custom-button">Volver</a>
     </form>
 </body>
 

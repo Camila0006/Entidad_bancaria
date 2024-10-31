@@ -21,15 +21,29 @@
     <form method="post" action="{% url 'login_admin' %}" class="form-admin">
         {% csrf_token %}
         <h2>Login</h2>
-        <label for="codigo_administrador">Codigo del administrador:</label>
-        <input type="text" id="codigo_administrador" name="codigo_administrador" required>
-        <br>
-        <a href="{% url 'administrador' %}" class="custom-button" type="submit">Iniciar sesión</a>
+        <input type="text" id="cedula" name="cedula" placeholder="Cédula" required maxlength="10" pattern="^\d{1,10}$" title="La cédula debe contener solo números y hasta 10 caracteres.">
+        <input type="password" id="codigo_administrador" name="codigo_administrador" placeholder="Código administrador" required maxlength="4" pattern="^\d{1,4}$" title="El código debe contener solo números y hasta 4 caracteres." inputmode="numeric">
+        
+        <button type="submit" class="custom-button">Iniciar sesión</button>
         <br>
         <div>
             <a href="{% url 'index' %}" class="custom-button">Volver</a>
         </div>
     </form>
+    <script>
+        document.getElementById("cedula").addEventListener("input", function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');  // Elimina cualquier carácter no numérico
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);  // Limita la longitud a 10 caracteres
+            }
+        });
+    
+        document.getElementById("codigo_administrador").addEventListener("input", function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');  // Elimina cualquier carácter no numérico
+            if (this.value.length > 4) {
+                this.value = this.value.slice(0, 4);  // Limita la longitud a 4 caracteres
+            }
+        });
+    </script>
 </body>
-
 </html>

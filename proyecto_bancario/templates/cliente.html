@@ -27,9 +27,11 @@
     <header>
         <h1>Bienvenido a Banco XYZ</h1>
     </header>
-    <a href="{% url 'index' %}" class="custom-button">Cerrar sesion </a>
+    <form method="post" action="{% url 'cliente' %}">
+        {% csrf_token %}
+        <button class="custom-button" type="submit" name="cerrar_sesion" value="true">Cerrar sesión</button>
+    </form>
     <div class="container">
-
         <div class="row">
             <div class="col-md-6">
                 <h2>Saldo Total</h2>
@@ -78,7 +80,8 @@
         <input type="date" id="fecha_hasta" name="fecha_hasta">
 
         <button class="custom-button" type="submit">Filtrar</button>
-        <button class="custom-button" value="true" type="submit" id="reporte_cliente" name="reporte_cliente">Reporte</button>
+        <button class="custom-button" value="true" type="submit" id="reporte_cliente"
+            name="reporte_cliente">Reporte</button>
     </form>
     <nav>
         <ul>
@@ -102,20 +105,6 @@
             </table>
         </ul>
     </nav>
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            if(document.querySelector('.alert')) {
-                setTimeout(function(){
-                    window.location.href = "{% url 'cliente' %}";
-                }, 3000);
-            }
-
-            if (!sessionStorage.getItem('dataRefreshed')){
-                sessionStorage.setItem('dataRefreshed', 'true');
-                window.location.href = "{% url 'cliente' %}";
-            }
-        });
-    </script>
 </body>
 
 </html>

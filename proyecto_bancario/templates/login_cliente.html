@@ -24,17 +24,29 @@
     <form method="post" action="{% url 'login_cliente' %}" class="form-cliente">
         {% csrf_token %}
         <h2>Login</h2>
-        <label for="cedula">Cedula del cliente</label>
-        <input type="text" id="cedula" name="cedula" required>
-        
-        <label for="cuenta"> Codigo Cuenta</label>
-        <input type="text" id="cuenta" name="cuenta" required>
+        <input type="text" id="cedula" name="cedula" placeholder="Cédula" required>
+        <input type="password" id="cuenta" name="cuenta" placeholder="codigo cuenta" required maxlength="4" pattern="^\d{1,4}$" title="El código debe contener solo números y hasta 4 caracteres." inputmode="numeric">
         <br>    
-        <!-- <button class="custom-button" type="submit">Iniciar sesión</button> -->
-        <a href="{% url 'cliente' %}" class="custom-button" type="submit">Iniciar sesión</a>
+        <button class="custom-button" type="submit">Iniciar sesión</button>
         <br>
         <a href="{% url 'index' %}" class="custom-button">Volver</a>
     </form>
+
+    <script>
+        document.getElementById("cedula").addEventListener("input", function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');  // Elimina cualquier carácter no numérico
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);  // Limita la longitud a 10 caracteres
+            }
+        });
+    
+        document.getElementById("cuenta").addEventListener("input", function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');  // Elimina cualquier carácter no numérico
+            if (this.value.length > 4) {
+                this.value = this.value.slice(0, 5);  // Limita la longitud a 4 caracteres
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -2,102 +2,101 @@ body {
     background-color: #f8f8f8;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
     height: 100vh;
 }
 
-form {
+/* Estilos para el formulario de validación de cédula */
+.valida_cuenta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1px 10px;
+    max-width: auto; /* Tamaño reducido */
+    max-height: auto;
+    margin: -10px auto; /* Centrado en la parte superior */
+    margin-right: 5px;
+}
+
+.valida_cuenta input {
+    padding: 1px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 40%; /* Reduce el tamaño del input */
+}
+
+.valida_cuenta button {
+    background-color: #343a40;
+    color: white;
+    padding: 1px;
+    margin-top: 1px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 40%;
+}
+
+.valida_cuenta button:hover {
+    background-color: #343a40;
+}
+
+/* Estilos para el formulario de actualización de cliente */
+form#actualizar-cuenta-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 500px;
-    text-align: center;
+    max-width: 800px;
+    margin: 40px auto;
 }
 
+.form-group {
+    width: 45%;
+    margin: 10px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
 
 label {
-    display: block; 
-    margin-top: 10px; 
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 input, select {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0;
+    padding: 10px;
+    margin: 8px 0;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 100%;
 }
 
-
 button {
-    background-color: #1e0285; 
+    width: 100%;
+    background-color: #343a40;
     color: white;
-    padding: 10px 15px;
-    margin: 8px 0;
+    padding: 10px;
+    margin-top: 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #1e0285; 
+    background-color: #343a40;
 }
-
 
 .alert-container {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    z-index: 1000;  
-}
-
-.alert {
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: 5px;
     margin-bottom: 20px;
-}
-
-.alert-success {
-    color: black;
-    background-color: #a2ffb1;
-    border-color: #ebccd1;
-}
-
-.alert-warning {
-    color: black;
-    background-color: #fff1a2;
-    border-color: #ebccd1;
-}
-
-.alert-error {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-}
-
-.custom-button {
-    background-color: #1e0285;
-    color: white;
-    padding: 12px 15px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    text-decoration: none; /* Quita el subrayado del enlace */
-    transition: background-color 0.3s ease;
-    display: inline-block; /* Asegura que se comporte como un botón */
-}
-
-.custom-button:hover {
-    background-color: #2b1ba6;
 }

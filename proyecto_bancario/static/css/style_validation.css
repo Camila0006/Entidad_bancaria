@@ -38,7 +38,7 @@ input {
 }
 
 button {
-    background-color: #1e0285; 
+    background-color: #343a40; 
     color: white;
     padding: 10px 15px;
     margin: 8px 0;
@@ -48,7 +48,7 @@ button {
 }
 
 button:hover {
-    background-color: #1e0285; 
+    background-color: #343a40; 
 }
 
 .login-box {
@@ -98,7 +98,7 @@ button:hover {
 }
 
 .form-validation-cuenta.custom-button {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 12px 15px;
     margin: 10px 0;
@@ -112,11 +112,11 @@ button:hover {
 }
 
 .form-validation-cuenta.custom-button:hover {
-    background-color: #2b1ba6;
+    background-color: #343a40;
 }
 
 .form-validation-cliente.custom-button {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 12px 15px;
     margin: 10px 0;
@@ -130,5 +130,5 @@ button:hover {
 }
 
 .form-validation-cliente.custom-button:hover {
-    background-color: #2b1ba6;
+    background-color: #343a40;
 }

@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: #fff;
     padding: 40px;
     text-align: center;
@@ -111,7 +111,7 @@ footer {
 }
 
 .custom-button {
-    background-color: #1e0285;
+    background-color: #343a40;
     color: white;
     padding: 12px 15px;
     margin: 10px 0;
@@ -125,5 +125,5 @@ footer {
 }
 
 .custom-button:hover {
-    background-color: #2b1ba6;
+    background-color: #343a40;
 }
