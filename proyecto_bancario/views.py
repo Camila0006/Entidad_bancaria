@@ -3,10 +3,12 @@ from datetime import datetime
 from django.http import HttpResponse
 import csv
 import io
-from proyecto_bancario.db.querysDB import registro_admin
-from proyecto_bancario.db.querysDB import obtener_cuenta, obtener_administrador,registro_cliente,actualizar_usuario
-from proyecto_bancario.db.querysDB import listar_cuentas,registro_cuenta, actualizar_cuenta, eliminar_cuenta, movimiento_cuenta, obtener_ciudades
-from proyecto_bancario.db.querysDB import eliminar_cliente,listar_clientes,obtener_clientes_por_cedula,obtener_movimientos_por_fechas,obtener_clientes_por_codigo_cuenta
+from proyecto_bancario.db.querysDB import (registro_admin,obtener_cuenta, 
+                                           obtener_administrador,registro_cliente,actualizar_usuario
+                                           ,listar_cuentas,registro_cuenta, actualizar_cuenta, eliminar_cuenta,
+                                           movimiento_cuenta, obtener_ciudades,eliminar_cliente,listar_clientes,
+                                           obtener_clientes_por_cedula,obtener_movimientos_por_fechas,obtener_clientes_por_codigo_cuenta,
+                                           filtrar_clientes_por_cedula_o_nombre,filtrar_cuentas_por_estado,filtrar_cuentas_por_tipo)
 
 global valida_login_admin
 global valida_login_cliente
@@ -39,6 +41,7 @@ def login_cliente_view(request):
             # valida_login_cliente = True
             global valida_cliente_por_cedula 
             valida_cliente_por_cedula = cedula
+            request.method = 'GET'
             return render(request, 'cliente.html')
         elif cuenta_asociada != cuenta:
             context ['warning_message'] = 'Ups, El codigo de la cuenta es incorrecto '
@@ -67,6 +70,8 @@ def administrador_view(request):
     # if valida_login_admin is False:
     #     return render(request, 'login_admin.html')
     # else:
+    global valida_reporte_por_codigo_cuenta
+    valida_reporte_por_codigo_cuenta = ""
     context = {}
     administrador = obtener_administrador(2409)
     cliente_admin = obtener_clientes_por_cedula(administrador[0][1])
@@ -75,9 +80,10 @@ def administrador_view(request):
         'apellido': cliente_admin[0][2]
     }
 
-    # if request.POST.get('cerrar_sesion'):
-    #     valida_login_admin = False
-    #     return render(request, 'index.html', context)
+    if request.method == 'POST' and request.POST.get('cerrar_sesion'):
+        valida_login_admin = False
+        request.method = 'GET'
+        return render(request, 'index.html', context)
     return render(request,'administrador.html', context)
 
 
@@ -143,8 +149,22 @@ def cliente_view(request):
 
 
 def listar_clientes_view(request):
-    clientes = listar_clientes()
-    return render(request,'listar_clientes.html',{'clientes': clientes})
+    context = {
+        'clientes': {}
+    }
+    if request.method == 'POST' and request.POST.get('boton_filtrar') == "true":
+        if (valor := request.POST.get('filtro')) != None and valor != "":
+            clientes = filtrar_clientes_por_cedula_o_nombre(valor)
+            context['clientes'] = clientes
+            request.method = 'GET'
+            return render(request,'listar_clientes.html', context)
+        else:
+            context['message_error_filter'] = '¡Ups!, por favor ingrese un valor para filtrar, refresque e intente de nuevo!'
+            return render(request,'listar_clientes.html', context)
+    else:
+        clientes = listar_clientes()
+        context['clientes'] = clientes
+        return render(request,'listar_clientes.html', context)
 
 
 def registro_cliente_view(request):
@@ -256,14 +276,60 @@ def eliminar_cliente_view(request):
 
 
 def listar_cuentas_view(request):
-    cuentas = listar_cuentas()
-    if request.method == 'POST':
-        reporte_por_codigo_cuenta = request.POST.get('reporte')
-        global valida_reporte_por_codigo_cuenta
-        valida_reporte_por_codigo_cuenta = reporte_por_codigo_cuenta
-        request.method = 'GET'
-        return reporte_por_codigo_cuenta_view(request)
-    return render(request,'listar_cuentas.html',{'cuentas': cuentas})
+    context = {
+        'cuentas': {}
+    }
+    filtro_estado = ""
+    filtro_tipo = ""
+
+    print("MEhotodo " , request.method)
+    if request.method == 'POST' :
+        #Validamos todo los filtros uno por uno
+        if (reporte_por_codigo_cuenta := request.POST.get('reporte')) != None and reporte_por_codigo_cuenta != "":
+            global valida_reporte_por_codigo_cuenta
+            valida_reporte_por_codigo_cuenta = reporte_por_codigo_cuenta
+            request.method = 'GET'
+            return reporte_por_codigo_cuenta_view(request)
+
+        print("accion boton buscar", request.POST.get('boton_filtrar'))
+        if (boton_filtrar := request.POST.get('boton_filtrar')) != None and boton_filtrar == "true":
+            print("obtenemos lo que viene para filtrar?", request.POST.get('filtro'))
+            if (codigo_cuenta := request.POST.get('filtro')) != None and codigo_cuenta != "":
+                cuenta = obtener_cuenta(codigo_cuenta)
+                context['cuentas'] = cuenta
+                request.method = 'GET'
+                return render(request,'listar_cuentas.html', context)
+            else:
+                context['message_error_filter'] = '¡Ups!, por favor ingrese un valor para filtrar, refresque e intente de nuevo!'
+                return render(request,'listar_cuentas.html', context)
+        
+        print("Que filtros estamos enviando crajo : Activa--", request.POST.get('filtro_activa'), " : Inactiva --", request.POST.get('filtro_inactiva'), " : Ahorros --",request.POST.get('filtro_ahorros'), " : Corriente --", request.POST.get('filtro_corriente'))
+        if (filtro_activa := request.POST.get('filtro_activa')) != None and filtro_activa == "activa" :
+            filtro_estado = filtro_activa
+        if (filtro_inactiva := request.POST.get('filtro_inactiva')) != None and filtro_inactiva == "inactiva" :
+            filtro_estado = filtro_inactiva
+        if (filtro_ahorros := request.POST.get('filtro_ahorros')) != None and filtro_ahorros == "ahorros" :
+            filtro_tipo = filtro_ahorros
+        if (filtro_corriente := request.POST.get('filtro_corriente')) != None and filtro_corriente == "corriente" :
+            filtro_tipo = filtro_corriente
+
+        print("que vamos a filtrar de estados: ", filtro_estado)
+        print("que vamos a filtrar de tipos: ", filtro_tipo)
+        if filtro_estado != "" :
+            cuentas = filtrar_cuentas_por_estado(filtro_estado)
+            context['cuentas'] = cuentas
+            request.method = 'GET'
+            return render(request,'listar_cuentas.html', context)
+        
+        if filtro_tipo != "" :
+            cuentas = filtrar_cuentas_por_tipo(filtro_tipo)
+            context['cuentas'] = cuentas
+            request.method = 'GET'
+            return render(request,'listar_cuentas.html', context)
+    else :
+        cuentas = listar_cuentas() 
+        context['cuentas'] = cuentas
+        return render(request,'listar_cuentas.html', context)
 
 
 def reporte_por_codigo_cuenta_view(request):
@@ -273,9 +339,15 @@ def reporte_por_codigo_cuenta_view(request):
         context['cuenta'] = valida_reporte_por_codigo_cuenta
         context['reporte_cliente'] = obtener_clientes_por_codigo_cuenta(valida_reporte_por_codigo_cuenta)
         context['reporte_cuenta'] = obtener_cuenta(valida_reporte_por_codigo_cuenta)
-
-        if request.method == 'POST':
-            return generar_reporte()
+        
+        if request.method == 'POST' and request.POST.get('descarga_reporte'):
+            print("Descargamos reporte", valida_reporte_por_codigo_cuenta)
+            return generar_reporte(valida_reporte_por_codigo_cuenta)
+        elif request.method == 'POST' and request.POST.get('volver'):
+            print("Volvemos", valida_reporte_por_codigo_cuenta)
+            request.method = 'GET'
+            return administrador_view(request)
+            
     else:
         return listar_cuentas_view(request)
 
@@ -374,19 +446,28 @@ def eliminar_cuenta_view(request):
     return render(request, 'eliminar_cuenta.html', context)
 
 
-def generar_reporte():
+def generar_reporte(valida_reporte_por_codigo_cuenta):
+    print("descarga_reporte_cedula", valida_reporte_por_codigo_cuenta)
     cliente = obtener_clientes_por_codigo_cuenta(valida_reporte_por_codigo_cuenta)
     cuenta = obtener_cuenta(valida_reporte_por_codigo_cuenta)
     output = io.StringIO()
+    writer = csv.writer(output, delimiter=';')
 
-    writer = csv.writer(output)
-    writer.writerow(['Cedula de cliente', 'Nombre', 'Apellido', 'Telefono', 'Direccion', 'Ciudad', 'Codigo de la cuenta asociada'])
-    writer.writerow([cliente[0][0], cliente[0][1], cliente[0][2], cliente[0][3], cliente[0][4], cliente[0][5], cliente[0][6]])
+    if cliente:
+        writer.writerow(['Cedula de cliente', 'Nombre', 'Apellido', 'Telefono', 'Direccion', 'Ciudad', 'Codigo de la cuenta asociada'])
+        print("Datos que envio en reporte sobre cliente", cliente)
+        writer.writerow([f'"{cliente[0][0]}"', cliente[0][1], cliente[0][2], cliente[0][3], cliente[0][4], f'"{cliente[0][5]}"', f'"{cliente[0][6]}"'])
 
-    writer.writerow(['Codigo de cuenta', 'Tipo de cuenta', 'Estado de cuenta', 'Saldo total'])
-    writer.writerow([cuenta[0][0], cuenta[0][1], cuenta[0][2], cuenta[0][3]])
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="reporte_cuenta_{valida_reporte_por_codigo_cuenta}.csv"'
+    writer.writerow([])
+    writer.writerow([])
+    writer.writerow([])
+
+    if cuenta:
+        writer.writerow(['Codigo de cuenta', 'Tipo de cuenta', 'Estado de cuenta', 'Saldo total'])
+        print("Datos que envio en reporte sobre cuenta del cliente", cuenta)
+        writer.writerow([f'"{cuenta[0][0]}"', cuenta[0][1], cuenta[0][2], cuenta[0][3]])
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="reporte_cuenta_{valida_reporte_por_codigo_cuenta}.csv"'
 
     response.write(output.getvalue())
 
@@ -395,9 +476,10 @@ def generar_reporte():
 def generar_reporte_por_movimiento(cedula_cliente):
     movimientos = obtener_movimientos_por_fechas(cedula_cliente,0,0)
     output = io.StringIO()
-    writer = csv.writer(output)
-    writer.writerow(['Fecha del movimiento','Tipo de movimiento','Saldo total'])
+    writer = csv.writer(output, delimiter=';')
+
     for movimiento in movimientos:
+        writer.writerow(['Fecha del movimiento','Tipo de movimiento','Saldo total'])
         writer.writerow([movimiento[3],movimiento[4],movimiento[5]])
 
     response = HttpResponse(content_type='text/csv')

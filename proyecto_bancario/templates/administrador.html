@@ -5,11 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco XYZ</title>
+    <title>Banco XYZ - Panel de Administración</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
     <link rel="stylesheet" href="{% static 'css/administrador.css' %}">
 </head>
 
@@ -18,34 +17,114 @@
         <h2>Panel de Administración</h2>
         <ul>
             <li class="menu-item">
-                <a href="{% url 'administrador' %}">Clientes</a>
+                <a href="{% url 'administrador' %}" class="menu-link">Clientes</a>
                 <ul class="submenu">
-                    <li><a href="{% url 'listar_clientes' %}" data-url="{% url 'listar_clientes' %}">Lista de clientes</a></li>
-                    <li><a href="{% url 'registro_cliente' %}" data-url="{% url 'registro_cliente' %}">Agregar nuevo cliente</a></li>
-                    <li><a href="{% url 'actualizar_cliente' %}" data-url="{% url 'actualizar_cliente' %}">Actualizar cliente existente</a></li>
-                    <li><a href="{% url 'eliminar_cliente' %}" data-url="{% url 'eliminar_cliente' %}">Eliminar un cliente</a></li>
+                    <li><a href="{% url 'listar_clientes' %}" class="load-content">Lista de clientes</a></li>
+                    <li><a href="{% url 'registro_cliente' %}" class="load-content">Agregar nuevo cliente</a></li>
+                    <li><a href="{% url 'actualizar_cliente' %}" class="load-content">Actualizar cliente existente</a>
+                    </li>
+                    <li><a href="{% url 'eliminar_cliente' %}" class="load-content">Eliminar un cliente</a></li>
                 </ul>
             </li>
             <li class="menu-item">
-                <a href="{% url 'administrador' %}">Cuentas</a>
+                <a href="{% url 'administrador' %}" class="menu-link">Cuentas</a>
                 <ul class="submenu">
-                    <li><a href="{% url 'listar_cuentas' %}" data-url="{% url 'listar_cuentas' %}">Lista de cuentas</a></li>
-                    <li><a href="{% url 'registro_cuenta' %}" data-url="{% url 'registro_cuenta' %}">Crear nueva cuenta</a></li>
-                    <li><a href="{% url 'actualizar_cuenta' %}" data-url="{% url 'actualizar_cuenta' %}">Actualizar cuenta existente</a></li>
-                    <li><a href="{% url 'eliminar_cuenta' %}" data-url="{% url 'eliminar_cuenta' %}">Eliminar cuenta</a></li>
+                    <li><a href="{% url 'listar_cuentas' %}" class="load-content">Lista de cuentas</a></li>
+                    <li><a href="{% url 'registro_cuenta' %}" class="load-content">Crear nueva cuenta</a></li>
+                    <li><a href="{% url 'actualizar_cuenta' %}" class="load-content">Actualizar cuenta existente</a>
+                    </li>
+                    <li><a href="{% url 'eliminar_cuenta' %}" class="load-content">Eliminar cuenta</a></li>
                 </ul>
             </li>
         </ul>
         <form method="post" action="{% url 'administrador' %}">
             {% csrf_token %}
-            <button class="custom-button" type="submit" name="cerrar_sesion" value="true">Cerrar sesión</button>
+            <button class="btn btn-secondary" type="submit" name="cerrar_sesion" value="true">Cerrar sesión</button>
         </form>
     </div>
 
     <div id="content-area">
-        <h3>Bienvenido al sistema de administración : {{administrador.nombre}} {{administrador.apellido}}</h3>
+        <h3>Bienvenido al sistema de administración : {{ administrador.nombre }} {{ administrador.apellido }}</h3>
         <p>Selecciona una opción del menú para empezar.</p>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".load-content").click(function (event) {
+                event.preventDefault();
+                var url = $(this).attr("href");
+
+                $("#content-area").html("<p>Cargando...</p>");  // Mensaje de carga
+
+                $.get(url, function (data) {
+                    $("#content-area").html(data);  // Carga el contenido de la vista
+                }).fail(function () {
+                    $("#content-area").html("<p>Error al cargar el contenido.</p>");  // Manejo de errores
+                });
+            });
+        });
+        // Cargamos filtro por cedula o nombre de cliente en listar clientes
+        $(document).on("click", ".search-button", function () {
+            var filtrar = $(this).val();
+            var valor_filtro = $("input[name='filtro']").val();
+
+            $("#content-area").html("<p>Cargando clientes...</p>");
+
+            $.post("{% url 'listar_clientes' %}", { boton_filtrar: filtrar, filtro: valor_filtro, csrfmiddlewaretoken: '{{ csrf_token }}' })
+                .done(function (data) {
+                    $("#content-area").html(data);
+                })
+                .fail(function () {
+                    $("#content-area").html("<p>Error al filtrar clientes.</p>");
+                });
+        });
+        // Cargamos filtros para listar cuentas
+        $(document).on("click", ".search-buttonC, .activa-button, .inactiva-button, .ahorros-button, .corriente-button", function () {
+            filtro = $(this).val();
+            filtro_nombre = "";
+            filtro_input = $("input[name='filtro']").val()
+
+            // Determina el filtro específico según la clase del botón clickeado
+            if ($(this).hasClass("search-buttonC")) {
+                filtro_nombre = "boton_filtrar";
+            } else if ($(this).hasClass("activa-button")) {
+                filtro_nombre = "filtro_activa";
+            } else if ($(this).hasClass("inactiva-button")) {
+                filtro_nombre = "filtro_inactiva";
+            } else if ($(this).hasClass("ahorros-button")) {
+                filtro_nombre = "filtro_ahorros";
+            } else if ($(this).hasClass("corriente-button")) {
+                filtro_nombre = "filtro_corriente";
+            }
+
+            // Cargar mensaje de espera
+            $("#content-area").html("<p>Cargando cuentas...</p>");
+
+            // Envía la petición AJAX con el filtro correspondiente
+            $.post("{% url 'listar_cuentas' %}", { [filtro_nombre]: filtro, filtro: filtro_input, csrfmiddlewaretoken: '{{ csrf_token }}' })
+                .done(function (data) {
+                    $("#content-area").html(data);  // Actualiza el área de contenido con los resultados
+                })
+                .fail(function () {
+                    $("#content-area").html("<p>Error al cargar las cuentas.</p>");  // Manejo de errores
+                });
+        });
+
+        // Cargar reporte dinámicamente
+        $(document).on("click", ".report-button", function () {
+            var cuentaCodigo = $(this).val();
+
+            $("#content-area").html("<p>Cargando reporte...</p>");
+
+            $.post("{% url 'reporte' %}", { reporte: cuentaCodigo, csrfmiddlewaretoken: '{{ csrf_token }}' })
+                .done(function (data) {
+                    $("#content-area").html(data);
+                })
+                .fail(function () {
+                    $("#content-area").html("<p>Error al cargar el reporte.</p>");
+                });
+        });
+    </script>
 </body>
 
 </html>

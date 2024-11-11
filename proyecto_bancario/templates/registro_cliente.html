@@ -20,7 +20,7 @@
         <div class="alert alert-success">{{ message_succes_registro }}</div>
         {% endif %}
     </div>
-    
+
     <header>
         <h1>Registro cliente</h1>
     </header>
@@ -30,10 +30,10 @@
             <input type="text" placeholder="Cedula" id="cedula" name="cedula" class="form-control" required>
         </div>
         <div class="col-md-6">
-            <input type="text" placeholder="Nombre" id="nombre" name="nombre" class="form-control" required>
+            <input type="text" placeholder="Nombre" id="nombre" name="nombre" class="form-control" onkeypress="return soloLetras(event)" required>
         </div>
         <div class="col-md-6">
-            <input type="text" placeholder="Apellido" id="apellido" name="apellido" class="form-control" required>
+            <input type="text" placeholder="Apellido" id="apellido" name="apellido" class="form-control" onkeypress="return soloLetras(event)" required>
         </div>
         <div class="col-md-6">
             <input type="tel" placeholder="Telefono" id="telefono" name="telefono" class="form-control" required>
@@ -45,18 +45,137 @@
             <label for="ciudad">Selecciona la ciudad</label>
             <select id="ciudad" name="ciudad">
                 {% for ciudad in ciudades %}
-                    <option value="{{ ciudad.codigo }}" {% if cliente.ciudad == ciudad.codigo %}selected{% endif %}>
-                        {{ ciudad.nombre }}
-                    </option>
+                <option value="{{ ciudad.codigo }}" {% if cliente.ciudad == ciudad.codigo %}selected{% endif %}>
+                    {{ ciudad.nombre }}
+                </option>
                 {% endfor %}
             </select>
         </div>
+        <div class="col-12 d-flex align-items-center mt-3">
+            <input type="checkbox" name="accept_data" id="acceptData" class="form-check-input me-2" required>
+            <label for="acceptData" class="form-check-label">
 
+            </label>
+
+            <!-- Enlace para abrir el modal de tratamiento de datos -->
+            <a href="#" data-bs-toggle="modal" data-bs-target="#tratamientoModal" class="link-info ms-3">
+                Acepto el tratamiento de datos personales
+            </a>
+        </div>
+
+        <!-- Modal para el Tratamiento de Datos -->
+        <div class="modal fade" id="tratamientoModal" tabindex="-1" aria-labelledby="tratamientoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tratamientoModalLabel">Tratamiento de Datos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>A continuación se describen los términos sobre el tratamiento de datos personales:</p>
+                        <ul>
+                            <li>La entidad bancaria Banco XYZ se compromete a proteger la privacidad de sus clientes y
+                                usuarios. La presente política de tratamiento de datos personales describe cómo
+                                recopilamos, utilizamos, almacenamos y protegemos los datos personales proporcionados
+                                durante el proceso de registro y la relación comercial con la entidad.</li>
+                            <br>
+                            <li>Datos Personales que Recopilamos:
+
+                                Durante el proceso de registro y la relación comercial, recopilamos los siguientes tipos
+                                de datos personales:
+
+                                Datos de Identificación: nombre completo, número de cédula, fecha de nacimiento,
+                                nacionalidad.
+                                Datos de Contacto: dirección de residencia, número de teléfono, correo electrónico.
+                                Datos Financieros: información sobre cuentas bancarias, ingresos, ocupación, información
+                                crediticia.
+                                Datos de Transacciones: movimientos en cuentas bancarias, pagos, transferencias, entre
+                                otros.</li>
+                            <br>
+                            <li>Los datos personales que recopilamos se utilizarán para las siguientes finalidades:
+
+                                Apertura y gestión de cuentas bancarias.
+                                Evaluación y análisis de la capacidad crediticia y riesgos asociados.
+                                Envío de información sobre productos y servicios financieros, comunicaciones
+                                comerciales, y promociones.
+                                Cumplimiento de obligaciones legales y regulatorias relacionadas con el sector
+                                financiero, tales como la prevención de delitos financieros (por ejemplo, lavado de
+                                dinero).
+                                Mejora del servicio al cliente mediante la gestión y personalización de los servicios
+                                ofrecidos.</li>
+                            <br>
+
+                            <li>El tratamiento de los datos personales se basa en las siguientes bases legales:
+
+                                Consentimiento: al completar el registro y aceptar esta política, el usuario otorga su
+                                consentimiento explícito para el tratamiento de sus datos personales.
+                                Cumplimiento de Obligaciones Contractuales: los datos son necesarios para el
+                                cumplimiento del contrato de apertura y gestión de cuentas.
+                                Cumplimiento de Obligaciones Legales: en algunos casos, los datos personales son
+                                requeridos para cumplir con la normativa vigente en materia de prevención de delitos
+                                financieros, tributarios, entre otros.</li>
+                            <br>
+                            <li> Los datos personales serán conservados durante el tiempo necesario para cumplir con las
+                                finalidades establecidas y en cumplimiento de las normativas aplicables. Una vez
+                                cumplido este período, los datos serán eliminados o anonimizados de acuerdo con las
+                                políticas de conservación de la entidad.</li>
+                            <br>
+                            <li>El titular de los datos tiene los siguientes derechos:
+
+                                Derecho de acceso: conocer qué datos personales se están tratando y la finalidad de este
+                                tratamiento.
+                                Derecho de rectificación: corregir datos personales inexactos o incompletos.
+                                Derecho de cancelación: solicitar la eliminación de los datos personales cuando ya no
+                                sean necesarios para las finalidades para las que fueron recolectados.
+                                Derecho de oposición: oponerse al tratamiento de sus datos en determinadas
+                                circunstancias.
+                                Derecho a la portabilidad: obtener sus datos en un formato estructurado y de uso común
+                                para transferirlos a otro responsable.
+                                Derecho a la revocación del consentimiento: puede revocar el consentimiento otorgado
+                                para el tratamiento de sus datos en cualquier momento, sin que esto afecte la legalidad
+                                del tratamiento realizado antes de la revocación.</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-12">
             <button type="submit">Enviar</button>
         </div>
         <a href="{% url 'administrador' %}" class="custom-button">Volver</a>
     </form>
+    <script>
+        document.getElementById("cedula").addEventListener("input", function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');  // Elimina cualquier carácter no numérico
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);  // Limita la longitud a 10 caracteres
+            }
+        });
+
+        document.getElementById("telefono").addEventListener("input", function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');  // Elimina cualquier carácter no numérico
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);  // Limita la longitud a 10 caracteres
+            }
+        });
+
+        function soloLetras(event) {
+            const charCode = event.charCode;
+            // Permitir solo letras (mayúsculas y minúsculas) y espacio
+            if ((charCode >= 65 && charCode <= 90) || // Letras mayúsculas
+                (charCode >= 97 && charCode <= 122) || // Letras minúsculas
+                charCode === 32) { // Espacio
+                return true;
+            } else {
+                return false; // Bloquear números y otros caracteres
+            }
+        }
+
+    </script>
 </body>
 
 </html>

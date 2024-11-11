@@ -14,7 +14,7 @@ def registro_admin():
 
 def obtener_ciudades():
     db = connection.cursor()
-    query = "SELECT codigo_ciudad, nombre_ciudad FROM ciudad"  # Incluye el código aquí si lo necesitas
+    query = "SELECT codigo_ciudad, nombre_ciudad FROM ciudad;"  # Incluye el código aquí si lo necesitas
     db.execute(query)
     result = db.fetchall()
     db.close()
@@ -25,7 +25,7 @@ def obtener_ciudades():
 
 def obtener_ciudad_por_nombre(nombre_ciudad):
     db = connection.cursor()
-    query = "SELECT * FROM ciudad WHERE nombre_ciudad = %s"
+    query = "SELECT * FROM ciudad WHERE nombre_ciudad = %s;"
     db.execute(query, nombre_ciudad)
     result = db.fetchall()
 
@@ -57,7 +57,7 @@ def obtener_clientes_por_codigo_cuenta(codigo_cuenta):
 
 def obtener_cuenta(codigo_cuenta):
     db = connection.cursor()
-    query = "SELECT * FROM cuenta WHERE codigo_cuenta = %s"
+    query = "SELECT * FROM cuenta WHERE codigo_cuenta = %s;"
     db.execute(query, codigo_cuenta)
     result = db.fetchall()
 
@@ -212,3 +212,33 @@ def movimiento_cuenta(tipo_movimiento, nuevo_saldo, saldo, cedula_cliente, codig
         return True
     
     return False
+
+
+def filtrar_clientes_por_cedula_o_nombre(valor):
+    db = connection.cursor()
+
+    query = "SELECT * FROM entidad_bancaria.cliente WHERE cedula_cliente = %s or nombre_cliente = %s;"
+    values = (valor, valor)
+    db.execute(query, values)
+    result = db.fetchall()
+
+    return result
+
+def filtrar_cuentas_por_estado(filtro_estado):
+    db = connection.cursor()
+
+    query = "SELECT * FROM entidad_bancaria.cuenta WHERE estado = %s;"
+    db.execute(query, filtro_estado)
+    result = db.fetchall()
+
+    return result
+
+def filtrar_cuentas_por_tipo(filtro_tipo):
+    db = connection.cursor()
+
+    query = "SELECT * FROM entidad_bancaria.cuenta WHERE nombre_cuenta = %s;"
+    db.execute(query, filtro_tipo)
+    result = db.fetchall()
+
+    return result
+

@@ -183,9 +183,8 @@ footer {
     object-fit: cover; /* La imagen cubrirá el contenedor sin deformarse */
 }
 
-.custom-button {
+.search-button {
     background-color: #343a40;
-    color: white;
     padding: 12px 15px;
     margin: 10px 0;
     border: none;
@@ -197,7 +196,7 @@ footer {
     display: inline-block; /* Asegura que se comporte como un botón */
 }
 
-.custom-button:hover {
+.search-button:hover {
     background-color: #343a40;
 }
 
